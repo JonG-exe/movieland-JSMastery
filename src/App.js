@@ -38,16 +38,16 @@ const App = () => {
 
 
     function hideSuggestions() {
-        // const suggestions = document.querySelector(".suggestions");
-
-        // console.log("Suggestions: ", suggestions.current)
-
-        suggestions.current.style.display = "none";
+        if(suggestions.current != null) {
+            suggestions.current.style.display = "none";
+        }
     }
 
     function showSuggestions() {
-        suggestions.current.style.display = "block"
-        console.log("clicked")
+        
+        if(suggestions.current != null) {
+            suggestions.current.style.display = "block"
+        }
     }
 
 
@@ -67,15 +67,16 @@ const App = () => {
                 onChange={ (e) => setsearchTerm(e.target.value) }
              />
 
-            {movies? (
+            {
+                movies? (
 
-                <div class="search-suggestions" ref={suggestions}>
-                    {movies.map((movie, i) => (
-                        <a href={`#${i}`} className="suggestion" onClick={hideSuggestions}>{movie.Title}</a>
-                    ))}
-                </div>
+                    <div class="search-suggestions" ref={suggestions}>
+                        {movies.map((movie, i) => (
+                            <a href={`#${i}`} className="suggestion" onClick={hideSuggestions}>{movie.Title}</a>
+                        ))}
+                    </div>
 
-            ): (<> </> )
+                ): (<> </> )
 
             }
 
