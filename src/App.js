@@ -6,7 +6,7 @@ import "./App.css"
 
 // API key: ee6d6fd8
 
-const API_URL = "http://www.omdbapi.com?apikey=ee6d6fd8"
+const API_URL = "https://www.omdbapi.com?apikey=ee6d6fd8"
 
 // const movie1 = {
 //     "Title": "Lois & Clark: The New Adventures of Superman",
@@ -38,14 +38,12 @@ const App = () => {
         <h1>MovieLands</h1>
 
         <div className="search">
+            
             <input 
                 type="text"
                 placeholder="Search for movies"
                 value={searchTerm}
-                onChange={(e) => {
-                    console.log("change: ", e)
-                    setsearchTerm(e.target.value)
-                }}
+                onChange={ (e) => setsearchTerm(e.target.value) }
              />
 
             {movies? (
@@ -56,14 +54,9 @@ const App = () => {
                     ))}
                 </div>
 
-            ): (
+            ): (<> </> )
 
-                <>
-                </>
-
-            )
-
-                }
+            }
 
             <img 
                 src={SearchIcon}
