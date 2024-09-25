@@ -48,11 +48,29 @@ const App = () => {
                 }}
              />
 
-             <img 
+            {movies? (
+
+                <div class="search-suggestions">
+                    {movies.map(movie => (
+                        <div className="suggestion">{movie.Title}</div>
+                    ))}
+                </div>
+
+            ): (
+
+                <>
+                </>
+
+            )
+
+                }
+
+            <img 
                 src={SearchIcon}
                 alt="search"
                 onClick={() => {searchMovies(searchTerm)}}
             />
+
         </div>
 
         {
