@@ -49,7 +49,7 @@ h1 {
   justify-content: center;
 
   padding: 1.5rem 1.75rem;
-  border-radius: 3rem;
+/*   border-radius: 3rem; */
   background: #1f2123;
   -webkit-box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
   box-shadow: 5px 5px 7px #1c1d1f, -5px -5px 7px #222527;
