@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import SearchIcon from "./search.svg"
 import MovieCard from './MovieCard'
 import "./App.css"
@@ -16,10 +16,14 @@ const API_URL = "https://www.omdbapi.com?apikey=ee6d6fd8"
 //     "Poster": "https://m.media-amazon.com/images/M/MV5BZTU1ZGFjNzEtZWYzZC00ZmI0LTg2NmMtN2YyNTY4YzhlODIyXkEyXkFqcGdeQXVyMjExMjk0ODk@._V1_SX300.jpg"
 // }
 
+
 const App = () => {
 
     const [searchTerm, setsearchTerm] = useState("")
     const [movies, setMovies] = useState([]);
+    const suggestions = useRef(null);
+    const searchBox = useRef(null);
+
 
     const searchMovies = async (title) => {
         const response = await fetch(`${API_URL}&s=${title}`);
@@ -32,6 +36,21 @@ const App = () => {
         searchMovies(searchTerm);
     }, [searchTerm])
 
+
+    function hideSuggestions() {
+        // const suggestions = document.querySelector(".suggestions");
+
+        // console.log("Suggestions: ", suggestions.current)
+
+        suggestions.current.style.display = "none";
+    }
+
+    function showSuggestions() {
+        suggestions.current.style.display = "block"
+        console.log("clicked")
+    }
+
+
   return (
     <div className="app">
 
@@ -40,6 +59,8 @@ const App = () => {
         <div className="search">
             
             <input 
+                ref={searchBox}
+                onClick={showSuggestions}
                 type="text"
                 placeholder="Search for movies"
                 value={searchTerm}
@@ -48,9 +69,9 @@ const App = () => {
 
             {movies? (
 
-                <div class="search-suggestions">
-                    {movies.map(movie => (
-                        <div className="suggestion">{movie.Title}</div>
+                <div class="search-suggestions" ref={suggestions}>
+                    {movies.map((movie, i) => (
+                        <a href={`#${i}`} className="suggestion" onClick={hideSuggestions}>{movie.Title}</a>
                     ))}
                 </div>
 
@@ -70,8 +91,8 @@ const App = () => {
             movies?.length > 0 
                 ? (
                     <div className="container">
-                        {movies.map(movie => (
-                            <MovieCard movie={movie}/>)
+                        {movies.map((movie, i) => (
+                            <MovieCard movie={movie} id={i} />)
                         )}
                     </div>
                 ) : (
